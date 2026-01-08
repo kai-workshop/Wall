@@ -1,0 +1,53 @@
+/* Minimal reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Variables dinámicas (fg será actualizada desde JS) */
+:root {
+  --fg: 255,255,255; /* default white RGB triplet */
+}
+
+/* Body is just a fallback; canvas actually paints the background */
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: rgb(0,0,0);
+  font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fullscreen canvas */
+canvas#bg {
+  position: fixed;
+  inset: 0;
+  display: block;
+}
+
+/* UI container: padding scales with viewport */
+.ui {
+  position: fixed;
+  left: clamp(20px, 4vw, 72px);
+  bottom: clamp(20px, 4vh, 72px);
+  z-index: 10;
+  pointer-events: none; /* purely visual */
+}
+
+/* Minimalist clock: size responsive using clamp */
+#clock {
+  color: rgb(var(--fg));
+  font-weight: 300;
+  letter-spacing: 4px;
+  font-size: clamp(28px, 6.5vw, 96px); /* adjusts to screen */
+  line-height: 0.9;
+  opacity: 0.92;
+  user-select: none;
+  -webkit-user-select: none;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums; /* consistent digits width */
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
